@@ -20,7 +20,6 @@ export function createRequester({config, refresh_token, username, password}) {
       throw Error('unable to authenticate');
     return request
       .use(promise)
-      .set('authorization', 'Bearer ' + client.tokens.access_token)
-      .end();
+      .set('authorization', 'Bearer ' + client.tokens.access_token);
   }
 }
