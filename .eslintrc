@@ -11,7 +11,8 @@
     "describe": false,
     "before": false,
     "beforeEach": false,
-    "it": false
+    "it": false,
+    "window": true
   },
   "extends": "eslint:recommended",
   "rules": {

@@ -3,12 +3,14 @@ import Client from './client';
 
 export superagent from 'superagent';
 
-export function createClient(config, refresh_token) {
-  return new Client(config, refresh_token);
+export function createClient({config, refresh_token, _window}) {
+  if (!_window)
+    throw Error('cannot create client: _window missing');
+  return new Client(config, refresh_token, _window);
 }
 
-export function createRequester({config, refresh_token, username, password}) {
-  const client = createClient(config, refresh_token);
+export function createRequester({config, refresh_token, _window, username, password}) {
+  const client = createClient({config, refresh_token, _window});
   let active = true
   if (username && password)
     active = false;
