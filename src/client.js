@@ -23,8 +23,7 @@ export default class Client {
       .post(this.config.endpoint + '/login')
       .auth(username, password)
       .accept('application/json')
-      .use(promise)
-      .end();
+      .use(promise);
     if (response.status == 200)
       return this._tokens(response.body);
     else
@@ -40,8 +39,7 @@ export default class Client {
       .type('application/json')
       .accept('application/json')
       .send({refresh_token})
-      .use(promise)
-      .end();
+      .use(promise);
     if (response.status == 200)
       return this._tokens(response.body);
     else
@@ -56,8 +54,7 @@ export default class Client {
       const response = await request
         .post(this.config.endpoint + '/logout')
         .set('authorization', 'Bearer ' + access_token)
-        .use(promise)
-        .end();
+        .use(promise);
       if (response.status == 204)
         return true;
       else
