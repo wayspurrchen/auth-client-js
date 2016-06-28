@@ -20,7 +20,7 @@ export default class Client {
     if (refresh_token)
         return {refresh_token};
     if (storedTokens)
-        return {storedTokens};
+        return storedTokens;
     return {};
   }
 
