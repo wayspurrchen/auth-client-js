@@ -41,7 +41,7 @@ describe('Client', function() {
   });
 
   /* Tokens */
-it('stores tokens on login', function() {
+  it('stores tokens on login', function() {
     return client.login('testuser', 'efgh5678@')
       .then(function(tokens) {
         assert(tokens.access_token === client.store.getObject("tok").access_token);
@@ -50,6 +50,17 @@ it('stores tokens on login', function() {
 
   it('updates tokens on refresh', function() {
     return client.refresh()
+      .then(function(tokens) {
+        assert(tokens.access_token === client.store.getObject("tok").access_token);
+      });
+  });
+
+  it('updates tokens on a refresh with a new client', function () {
+    var newClient = _RMAUTH.createClient({
+      config,
+      _window: window
+    });
+    return newClient.refresh()
       .then(function(tokens) {
         assert(tokens.access_token === client.store.getObject("tok").access_token);
       });
