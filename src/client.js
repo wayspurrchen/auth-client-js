@@ -69,6 +69,9 @@ export default class Client {
 
   async logout() {
     const {access_token} = this.tokens;
+
+    this._clearTokens();
+
     if (!access_token)
       throw Error("no access token");
     else {
@@ -77,7 +80,6 @@ export default class Client {
         .set('authorization', 'Bearer ' + access_token)
         .use(promise)
       if (response.status == 204){
-        this._clearTokens();
         return true;
     }
       else
