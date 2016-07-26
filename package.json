@@ -1,6 +1,6 @@
 {
   "name": "authclient",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "client for realmassive auth service",
   "repository": "https://github.com/RealMassive/auth-client-js",
   "dependencies": {
