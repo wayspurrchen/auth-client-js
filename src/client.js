@@ -11,7 +11,13 @@ export default class Client {
 
   constructor(config, refresh_token, _window) {
     this.config = config;
-    this.store = ClientStorage.enabled(_window.localStorage) ? new ClientStorage(_window.localStorage) : null;
+
+    // Only attempt to establish a ClientStorage if a window was passed.
+    // A window should not be passed in a Node.js environment because there
+    // is no window to pass.
+    if (_window) {
+      this.store = ClientStorage.enabled(_window.localStorage) ? new ClientStorage(_window.localStorage) : null;
+    }
     this.tokens = this._setOrRestoreTokens(refresh_token);
   }
 

@@ -10,14 +10,9 @@ describe('Client', () => {
   const config = { endpoint: 'https://auth.realmassive.com' };
   const username = 'testuser';
   const password = 'efgh5678@';
-  const _window = {
-    localStorage: {
-      setItem: function () {},
-      getItem: function () {}
-    }
-  }
-  const requester = createRequester({config, username, password, _window});
-  const client = createClient({config, _window});
+
+  const requester = createRequester({config, username, password});
+  const client = createClient({config});
 
   it('login', async () => {
     const tokens = await client.login(username, password);

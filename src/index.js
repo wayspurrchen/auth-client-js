@@ -4,8 +4,6 @@ import Client from './client';
 export superagent from 'superagent';
 
 export function createClient({config, refresh_token, _window}) {
-  if (!_window)
-    throw Error('cannot create client: _window missing');
   return new Client(config, refresh_token, _window);
 }
 
