@@ -10,7 +10,7 @@ describe('Client', function() {
       throw Error('assertion failed');
   };
   var config = { endpoint: 'https://auth.realmassive.com' };
-  var client = _RMAUTH.createClient({config, _window: window});
+  var client = _RMAUTH.createClient({config});
 
   it('login', function() {
     return client.login('testuser', 'efgh5678@')
@@ -40,43 +40,47 @@ describe('Client', function() {
       });
   });
 
-  /* Tokens */
-  it('stores tokens on login', function() {
-    return client.login('testuser', 'efgh5678@')
-      .then(function(tokens) {
-        assert(tokens.access_token === client.store.getObject("tok").access_token);
-      });
-  });
+  describe('localStorage', function () {
+    var clientWithStorage = _RMAUTH.createClient({config, _window: window});
 
-  it('updates tokens on refresh', function() {
-    return client.refresh()
-      .then(function(tokens) {
-        assert(tokens.access_token === client.store.getObject("tok").access_token);
-      });
-  });
-
-  it('updates tokens on a refresh with a new client', function () {
-    var newClient = _RMAUTH.createClient({
-      config,
-      _window: window
+    /* Tokens */
+    it('stores tokens on login', function() {
+      return clientWithStorage.login('testuser', 'efgh5678@')
+        .then(function(tokens) {
+          assert(tokens.access_token === clientWithStorage.store.getObject("tok").access_token);
+        });
     });
-    return newClient.refresh()
-      .then(function(tokens) {
-        assert(tokens.access_token === client.store.getObject("tok").access_token);
-      });
-  });
 
-  it('updates tokens on reauthenticate', function() {
-    return client.reauthenticate()
-      .then(function(response) {
-        assert(response === true);
-      });
-  });
+    it('updates tokens on refresh', function() {
+      return clientWithStorage.refresh()
+        .then(function(tokens) {
+          assert(tokens.access_token === clientWithStorage.store.getObject("tok").access_token);
+        });
+    });
 
-  it('clears tokens on logout', function() {
-    return client.logout()
-      .then(function(response) {
-        assert(response === true);
+    it('updates tokens on a refresh with a new clientWithStorage', function () {
+      var newClient = _RMAUTH.createClient({
+        config,
+        _window: window
       });
+      return newClient.refresh()
+        .then(function(tokens) {
+          assert(tokens.access_token === clientWithStorage.store.getObject("tok").access_token);
+        });
+    });
+
+    it('updates tokens on reauthenticate', function() {
+      return clientWithStorage.reauthenticate()
+        .then(function(response) {
+          assert(response === true);
+        });
+    });
+
+    it('clears tokens on logout', function() {
+      return clientWithStorage.logout()
+        .then(function(response) {
+          assert(response === true);
+        });
+    });
   });
 });
