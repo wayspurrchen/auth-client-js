@@ -13,8 +13,7 @@
     "lint": "eslint src test",
     "test": "mocha --compilers js:babel-core/register --require babel-polyfill test/node",
     "test-browser": "karma start --single-run",
-    "build": "./node_modules/babel-cli/bin/babel.js src --out-dir lib",
-    "postinstall": "npm run build"
+    "build": "./node_modules/babel-cli/bin/babel.js src --out-dir lib"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
