@@ -17,7 +17,7 @@ var base = {
         test: path.join(__dirname, 'src'),
         loader: 'babel',
         query: {
-          presets: ['stage-0']
+          presets: ['es2015', 'stage-0']
         }
       }
     ]
