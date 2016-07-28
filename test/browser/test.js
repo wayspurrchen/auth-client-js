@@ -1,16 +1,17 @@
 /*eslint-disable */
 
 describe('Client', function() {
+  var authclient = require('../../src/index');
   var fixtures = require('../fixtures');
   var mock = require('superagent-mock');
-  mock(_RMAUTH.superagent, fixtures);
+  mock(authclient.superagent, fixtures);
 
   var assert = function(x) {
     if (!x)
       throw Error('assertion failed');
   };
   var config = { endpoint: 'https://auth.realmassive.com' };
-  var client = _RMAUTH.createClient({config});
+  var client = authclient.createClient({config});
 
   it('login', function() {
     return client.login('testuser', 'efgh5678@')
@@ -41,7 +42,7 @@ describe('Client', function() {
   });
 
   describe('localStorage', function () {
-    var clientWithStorage = _RMAUTH.createClient({config, _window: window});
+    var clientWithStorage = authclient.createClient({config, _window: window});
 
     /* Tokens */
     it('stores tokens on login', function() {
@@ -59,7 +60,7 @@ describe('Client', function() {
     });
 
     it('updates tokens on a refresh with a new clientWithStorage', function () {
-      var newClient = _RMAUTH.createClient({
+      var newClient = authclient.createClient({
         config,
         _window: window
       });
