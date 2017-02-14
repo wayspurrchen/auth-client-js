@@ -48,8 +48,12 @@ export default class Client {
   async login(username, password) {
     const response = await request
       .post(this.config.endpoint + '/login')
-      .auth(username, password)
+      .type('application/json')
       .accept('application/json')
+      .send({
+        email: username,
+        password
+      })
       .use(promise);
     if (response.status == 200)
       return this._tokens(response.body);
